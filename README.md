@@ -79,11 +79,41 @@ CREATE EXTERNAL TABLE IF NOT EXISTS alb_logs (
 5. **쿼리 편집기**를 사용하여 테이블에서 SQL 문을 실행합니다. 쿼리를 저장하고, 이전 쿼리를 보거나 쿼리 결과를 CSV 형식으로 다운로드할 수 있습니다.
 
 ## 쿼리의 예
-다음 예에서 쿼리에 맞게 테이블 이름, 열 값 및 기타 변수를 수정하세요.w
+다음 예에서 쿼리에 맞게 테이블 이름, 열 값 및 기타 변수를 수정하세요.
+
+**사진 입니다** 
+명령어 사용하고 싶다면 AWS Athena 사이트에서 참고해주세요: https://aws.amazon.com/ko/premiumsupport/knowledge-center/athena-analyze-access-logs/
 
 ![image](https://user-images.githubusercontent.com/86287920/209416848-bbcc34a0-a3db-44b5-8826-59cc6b173f91.png)
 ![image](https://user-images.githubusercontent.com/86287920/209416867-218b6804-7186-45eb-a2e6-180ce57f72e4.png)
 ![image](https://user-images.githubusercontent.com/86287920/209416929-b4b88c6c-4423-4f6b-a13a-f56e4f046f16.png)
+
+## 직접 사용했던 명령어 예시:
+```
+SELECT COUNT(request_verb) AS
+ count
+FROM alb_log
+WHERE elb_status_code = 302;
+```
+```
+SELECT COUNT(request_verb) AS
+ count,
+ client_ip
+FROM alb_log
+WHERE elb_status_code = 302
+GROUP BY client_ip
+```
+```
+SELECT COUNT(request_verb) AS count, request_verb, request_url, client_ip FROM alb_log
+WHERE request_verb = 'POST'
+GROUP BY request_verb, request_url, client_ip
+```
+```
+SELECT COUNT(request_verb) AS count, request_verb, request_url FROM alb_log
+WHERE request_verb = 'GET'
+GROUP BY request_verb, request_url
+```
+
 ---
 [액세스 로깅을 활성화]: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html#enable-access-logging
 [Application Load Balancers]: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/application-load-balancers.html
