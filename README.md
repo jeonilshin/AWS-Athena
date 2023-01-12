@@ -95,6 +95,11 @@ SELECT COUNT(request_verb) AS count, request_verb, request_url FROM alb_log
 WHERE request_verb = 'GET'
 GROUP BY request_verb, request_url
 ```
+```
+SELECT COUNT(request_verb) AS count, request_verb, request_url, client_ip FROM alb_log
+WHERE request_verb = 'POST'
+GROUP BY request_verb, request_url, client_ip
+```
 
 ---
 [액세스 로깅을 활성화]: https://docs.aws.amazon.com/elasticloadbalancing/latest/application/load-balancer-access-logs.html#enable-access-logging
