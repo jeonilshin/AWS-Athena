@@ -84,22 +84,11 @@ CREATE EXTERNAL TABLE IF NOT EXISTS alb_logs (
 ## 직접 사용했던 명령어 예시:
 ```
 SELECT COUNT(request_verb) AS
- count
-FROM alb_log
-WHERE elb_status_code = 302;
-```
-```
-SELECT COUNT(request_verb) AS
  count,
  client_ip
 FROM alb_log
 WHERE elb_status_code = 302
 GROUP BY client_ip
-```
-```
-SELECT COUNT(request_verb) AS count, request_verb, request_url, client_ip FROM alb_log
-WHERE request_verb = 'POST'
-GROUP BY request_verb, request_url, client_ip
 ```
 ```
 SELECT COUNT(request_verb) AS count, request_verb, request_url FROM alb_log
